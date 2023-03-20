@@ -49,7 +49,7 @@ namespace Rap_Finands
 
                 Console.Write(">");
                 string valg1 = Console.ReadLine();
-                int valg = int.Parse(valg1+1);
+                int valg = int.Parse(valg1);
                 
                 switch (valg) {
                     case 1:
@@ -84,7 +84,6 @@ namespace Rap_Finands
             int tal = int.Parse(Console.ReadLine());
             if (tal < 1 || tal > konti.Count) {
                 Console.WriteLine("Ugyldigt valg");
-                Console.Clear();
                 return null;
             }
             return konti[tal-1];
@@ -96,7 +95,7 @@ namespace Rap_Finands
             Console.Write("Beløb: ");
             float amount = float.Parse(Console.ReadLine());
             if (GemTrans(k,tekst,amount)) {
-                Console.WriteLine("Transkationen blev gemt. Ny saldo på kontoen: "+findSaldo(k));
+                 Console.WriteLine("Transkationen blev gemt. Ny saldo på kontoen: "+findSaldo(k));
                 gem();
             } else
                 Console.WriteLine("Transaktionen kunne ikke gemmes (Der var sikkert ikke penge nok på kontoen)");
@@ -135,7 +134,7 @@ namespace Rap_Finands
             }
         }
         static void dos_udskrivKonto(Konto k) {
-            Console.WriteLine("Konto for "+k.ejer+": "+k.registreringsnr+" "+k.kontonr);
+            Console.WriteLine("Konto for " + k.ejer + ": " + k.registreringsnr + " " + k.kontonr);
             Console.WriteLine("================");
             Console.WriteLine("Tekst\t\t\t\tBeløb\t\tSaldo");
             foreach (Transaktion t in k.transaktioner) {
@@ -152,7 +151,7 @@ namespace Rap_Finands
             if (saldo + beløb < 0) return false;
             var t = new Transaktion();
             t.tekst = tekst;
-            t.amount = belob;
+            t.amount = beløb;
             t.saldo = t.amount + saldo;
             t.dato = DateTime.Now;
             
@@ -177,7 +176,7 @@ namespace Rap_Finands
         }
         public static void hent()
         {
-            datafil = "debug_bank.json"; //Debug - brug en anden datafil til debug ~Konrad
+            datafil = "bank.json"; //Debug - brug en anden datafil til debug ~Konrad
             if (File.Exists(datafil)) {
                 string json = File.ReadAllText(datafil);
                 konti = JsonConvert.DeserializeObject<List<Konto>>(json);
